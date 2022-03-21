@@ -2,8 +2,8 @@ import ContenedorFirebase from "../contenedores/contenedorFirebase.js";
 
 class CarritoDaoFB extends ContenedorFirebase{
     constructor(){
-        super()
+        super('carritos')
     }
 }
 
-export default CarritoDaoFB;
+export default CarritoDaoFB; 

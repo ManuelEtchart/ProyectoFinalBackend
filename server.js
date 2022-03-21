@@ -1,11 +1,12 @@
-const express = require('express');
+import express from 'express';
 
 const app = express();
 
 app.use(express.static('public'));
 
-const carrito = require('./carrito.js');
-const productos = require('./productos.js');
+import productos from './productos.js';
+import carrito from './carrito.js';
+
 
 app.use('/api/carrito', carrito);
 app.use('/api/productos', productos);

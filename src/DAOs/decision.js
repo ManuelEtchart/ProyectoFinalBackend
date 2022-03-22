@@ -36,9 +36,13 @@ async function decision(){
             return {queryProductos: queryProductos, queryCarrito: queryCarrito}
             
         }else if(query === 'Firebase'){
+            const ProductosDaoFB = (await import("./productosDaoFB.js")).default
+            
+            const CarritoDaoFB = (await import("./carritoDaoFB.js")).default
 
-                //const queryProductos
-                //const queryCarrito
+            const queryProductos = new ProductosDaoFB()
+            const queryCarrito = new CarritoDaoFB()
+            return {queryProductos: queryProductos, queryCarrito: queryCarrito}
         }
     }catch(error){
         console.log(error, "Hubo un error");

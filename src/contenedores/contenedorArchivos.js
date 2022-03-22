@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { queryProductos } from '../../productos.js';
+import { productoArchivos } from '../../productos.js';
 
 class ContenedorArchivos{
     nombreArchivo;
@@ -111,7 +111,7 @@ class ContenedorArchivos{
             let array = JSON.parse(contenido);
             let carritoBuscado = array.find(obj => obj.id == id)
 
-            let productoBuscado = await queryProductos.getById(id_prod)
+            let productoBuscado = await productoArchivos.getById(id_prod)
 
             carritoBuscado.productos = [...carritoBuscado.productos, productoBuscado];
 

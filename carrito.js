@@ -1,20 +1,22 @@
 import express from 'express';
 //import decision from './src/DAOs/decision.js';
-
+import CarritoDaoMemoria from './src/DAOs/carritoDaoMemoria.js';
+import CarritoDaoArchivos from './src/DAOs/carritoDaoArchivos.js';
+import CarritoDaoMongoDB from './src/DAOs/carritoDaoMongoDB.js';
+import CarritoDaoFB from './src/DAOs/carritoDaoFB.js';
 const carrito = express.Router();
 
 //const query = await decision()
 //const queryCarrito = query.queryCarrito
 
-//const carritoMonDB = new CarritoDaoMongoDB()
-//const carritoMemoria = new CarritoDaoMemoria()
-//const carritoArchivos = new CarritoDaoArchivos()
 
-import CarritoDaoFB from './src/DAOs/carritoDaoFB.js';
+const carritoMemoria = new CarritoDaoMemoria()
+const carritoArchivos = new CarritoDaoArchivos()
+const carritoMonDB = new CarritoDaoMongoDB()
 const carritoFB = new CarritoDaoFB()
 
 carrito.use(express.json());
-carrito.use(express.urlencoded({extended: true}));
+carrito.use(express.urlencoded({extended: true}))
 
 carrito.post('', async (req,res) => {
     try {

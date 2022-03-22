@@ -1,6 +1,6 @@
 import config from "../utils/config.js";
 import mongoose from "mongoose";
-import { queryProductos } from "../../productos.js";
+import { productoMonDB } from "../../productos.js";
 
 const URL = config.mongoDB.url;
 
@@ -12,7 +12,6 @@ class ContenedorMongoDB {
         this.coleccion = mongoose.model(nombreColeccion, esquema)
     }
 
-    // aca adentro todos los metodos
     async save(obj){
         try {
             await mongoose.connect(URL)
@@ -129,7 +128,7 @@ class ContenedorMongoDB {
                 return {error: `Objeto ${id_prod} no encontrado`}
             };
 
-            const productoBuscadoArray = await queryProductos.getById(id_prod)
+            const productoBuscadoArray = await productoMonDB.getById(id_prod)
             const productoBuscadoObj = productoBuscadoArray[0]
 
             if(productoBuscadoObj.nombre === undefined){

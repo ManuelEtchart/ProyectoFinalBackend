@@ -1,14 +1,18 @@
 import express from 'express';
 //import decision from './src/DAOs/decision.js';
+import ProductosDaoMemoria from './src/DAOs/productosDaoMemoria.js';
+import ProductosDaoArchivos from './src/DAOs/productosDaoArchivos.js';
+import ProductosDaoMongoDB from './src/DAOs/productosDaoMongoDB.js';
+import ProductosDaoFB from './src/DAOs/productosDaoFB.js';
+
+//const query = await decision()
+//const queryProducto = query.queryProducto
+
 const productos = express.Router();
 
-//export const productoMonDB = new ProductosDaoMongoDB();
-//const query = await decision()
-
-//export const productoArchivos = new ProductosDaoArchivos()
-//export const queryProductos = query.queryProductos
-
-import ProductosDaoFB from './src/DAOs/productosDaoFB.js';
+export const productoMemoria = new ProductosDaoMemoria()
+export const productoArchivos = new ProductosDaoArchivos()
+export const productoMonDB = new ProductosDaoMongoDB();
 export const productoFB = new ProductosDaoFB()
 
 productos.use(express.json());

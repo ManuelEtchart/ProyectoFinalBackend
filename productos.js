@@ -1,81 +1,91 @@
 import express from 'express';
 //import decision from './src/DAOs/decision.js';
-import ProductosDaoMemoria from './src/DAOs/productosDaoMemoria.js';
-import ProductosDaoArchivos from './src/DAOs/productosDaoArchivos.js';
+import { loggerError, logger } from './server.js';
+import { mensajesMonDB } from './mensajes.js';
 import ProductosDaoMongoDB from './src/DAOs/productosDaoMongoDB.js';
-import ProductosDaoFB from './src/DAOs/productosDaoFB.js';
 
 //const query = await decision()
 //const queryProducto = query.queryProducto
 
 const productos = express.Router();
 
-export const productoMemoria = new ProductosDaoMemoria()
-export const productoArchivos = new ProductosDaoArchivos()
 export const productoMonDB = new ProductosDaoMongoDB();
-export const productoFB = new ProductosDaoFB()
 
 productos.use(express.json());
 productos.use(express.urlencoded({extended: true}));
 
 const administrador = true;
 
+productos.get('/form', async (req,res)=>{
+    logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
+    res.render('productosForm', {mensajes: await mensajesMonDB.getAll()});
+});
+
 productos.get('/:id?', async (req,res) => {
+    logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
     try {
         if (req.params.id === undefined) {
-            res.json(await productoFB.getAll())
+            res.render('inicio', {productos: await productoMonDB.getAll(), mensajes: await mensajesMonDB.getAll()})
+        }else{
+            res.render('producto',{producto: await productoMonDB.getById(req.params.id), mensajes: await mensajesMonDB.getAll()})
         }
-        res.json(await productoFB.getById(req.params.id))
     } catch (error) {
-        console.log(error, "Hubo un error");
+        loggerError.error(`${error} - Hubo un error en ruta ${req.url} metodo ${req.method} implementada`)
     }
 })
 
 productos.post('', async (req,res) => {
+    logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
     try{
         if(administrador){
             
-            res.json(await productoFB.save({
+            await productoMonDB.save({
                 timestamp: Date.now(),
-                nombre: req.query.nombre,
-                descripcion: req.query.descripcion,
-                codigo: req.query.codigo,
-                foto: req.query.foto,
-                precio: req.query.precio,
-                stock: req.query.stock
-            }));
+                nombre: req.body.nombre,
+                descripcion: req.body.descripcion,
+                codigo: req.body.codigo,
+                foto: req.body.urlFoto,
+                precio: req.body.precio,
+                stock: req.body.stock
+            });
+
+            res.redirect('/api/productos')
             
         }else{
+            loggerError.error(`${error} - Hubo un error en ruta ${req.url} metodo ${req.method} implementada - Ruta no autorizada`)
             res.send({error: '-1', descripcion: `ruta ${req.url} metodo ${req.method} no autorizada`});
         }
     }catch(error){
-        console.log(error, "Hubo un error");
+        loggerError.error(`${error} - Hubo un error en ruta ${req.url} metodo ${req.method} implementada`);
     }
 });
 
 productos.put('/:id', async (req,res) => {
+    logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
     try {
         if(administrador){
-            res.json(await productoFB.updateById(req.params.id, req.query));
+            res.json(await productoMonDB.updateById(req.params.id, req.query));
         }else{
+            loggerError.error(`${error} - Hubo un error en ruta ${req.url} metodo ${req.method} implementada - Ruta no autorizada`)
             res.send({error: '-1', descripcion: `ruta ${req.url} metodo ${req.method} no autorizada`});
         }
     } catch (error) {
-        console.log(error, "Hubo un error");
+        loggerError.error(`${error} - Hubo un error en ruta ${req.url} metodo ${req.method} implementada`)
     }
 })
 
 productos.delete('/:id', async (req,res) => {
+    logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
     try {
         if(administrador){
-            res.json(await productoFB.deleteById(req.params.id))
+            res.json(await productoMonDB.deleteById(req.params.id))
         }else{
+            loggerError.error(`${error} - Hubo un error en ruta ${req.url} metodo ${req.method} implementada - Ruta no autorizada`)
             res.send({error: '-1', descripcion: `ruta ${req.url} metodo ${req.method} no autorizada`});
         }
     } catch (error) {
-        console.log(error, "Hubo un error");
+        loggerError.error(`${error} - Hubo un error en ruta ${req.url} metodo ${req.method} implementada`)
     }
-    
 })
 
 export default productos;

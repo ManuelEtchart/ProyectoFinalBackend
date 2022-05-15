@@ -47,6 +47,24 @@ class ContenedorMongoDB {
         }
     }
 
+    async getByEmail(email){
+        try {
+            await mongoose.connect(URL)
+            const docs = await this.coleccion.find({"email": email}).lean()
+            if(docs.length === 0){
+                return null
+            }else{
+                return docs
+            }
+        } catch(error){
+            console.log(error, "Hubo un error");
+        }finally{
+            mongoose.disconnect().catch((error)=>{
+                console.log(error, "Hubo un error");
+            });
+        }
+    }
+
     async getAll(){
         try {
             await mongoose.connect(URL)

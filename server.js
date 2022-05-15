@@ -76,7 +76,7 @@ if(MODO_CLUSTER && cluster.isMaster) {
 
     app.get('/', (req,res)=>{
         logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
-        res.redirect('/api/productos')
+        res.redirect('/api/u/login')
     });
 
     app.get('*', (req,res) => {

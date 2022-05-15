@@ -1,0 +1,6 @@
+[2022-05-14T19:33:58.260] [ERROR] default - TypeError: Cannot read property 'fieldname' of undefined - Hubo un error en ruta /registro metodo POST implementada
+[2022-05-14T23:01:55.531] [ERROR] default - ReferenceError: path is not defined - Hubo un error en ruta /registro metodo POST implementada
+[2022-05-14T23:36:40.128] [ERROR] default - TypeError: Cannot read property 'originalname' of undefined - Hubo un error en ruta /registro metodo POST implementada
+[2022-05-15T03:29:20.835] [ERROR] default - Error: Missing credentials for "PLAIN" - Hubo un error en el envío del e-mail de registro
+[2022-05-15T04:22:56.029] [ERROR] default - TypeError: Cannot read property '0' of null - Hubo un error
+[2022-05-15T04:26:41.615] [ERROR] default - ReferenceError: __dirname is not defined - Hubo un error en ruta /registro metodo POST implementada

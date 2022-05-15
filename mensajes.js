@@ -1,6 +1,5 @@
 import express from 'express';
 import MensajesDaoMongoDB from './src/DAOs/mensajesDaoMongoDB.js'
-//import {faker} from '@faker-js/faker';
 import { loggerError, logger } from './server.js';
 
 const mensajes = express.Router();
@@ -23,7 +22,6 @@ mensajes.post('', async (req,res) =>{
         };
         let fechaActual = new Date();
         mensaje.fecha = `[(${fechaActual.getDay()}/${fechaActual.getMonth()}/${fechaActual.getFullYear()} ${fechaActual.getHours()}:${fechaActual.getMinutes()}:${fechaActual.getSeconds()})]`;
-        //mensaje.avatar = faker.image.avatar();
         await mensajesMonDB.save(mensaje);
         res.redirect(req.headers.referer)
     } catch (error) {

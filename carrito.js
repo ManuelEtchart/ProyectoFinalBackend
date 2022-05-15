@@ -4,6 +4,7 @@ import { mensajesMonDB } from './mensajes.js';
 import { productoMonDB } from './productos.js';
 import { logger,loggerError } from './server.js';
 import CarritoDaoMongoDB from './src/DAOs/carritoDaoMongoDB.js';
+import { isAuth } from './usuarios.js';
 
 const carrito = express.Router();
 
@@ -16,7 +17,7 @@ const carritoMonDB = new CarritoDaoMongoDB()
 carrito.use(express.json());
 carrito.use(express.urlencoded({extended: true}))
 
-carrito.get('', async (req,res)=>{
+carrito.get('', isAuth, async (req,res)=>{
     logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
     try {
         res.render('carritos',{carritos: await carritoMonDB.getAll(), mensajes: await mensajesMonDB.getAll()})
@@ -49,7 +50,7 @@ carrito.delete('/:id', async (req,res) => {
     }
 })
 
-carrito.get('/:id?/productos', async (req,res) => {
+carrito.get('/:id?/productos', isAuth, async (req,res) => {
     logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
     try {
         if(req.params.id === undefined){

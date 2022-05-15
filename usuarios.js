@@ -17,11 +17,11 @@ export const usuariosMonDB = new UsuariosDaoMongoDB();
 
 const TEST_GMAIL = process.env.TESTGMAIL;
 const PASS_GMAIL = process.env.PASSGMAIL;
-const ADMIN_GMAIL = process.env.ADMINGMAIL;
+export const ADMIN_GMAIL = process.env.ADMINGMAIL;
 
 export let emailUser = ''
 
-const transporter = createTransport({
+export const transporter = createTransport({
     service: 'gmail',
     port: 587,
     auth: {
@@ -37,7 +37,9 @@ passport.use(new LocalStrategy(
     async (username, password, done) =>{
         try {
             const usuario = await usuariosMonDB.getByEmail(username);
-            emailUser = username; 
+
+            emailUser = username;
+
             if (!usuario) {
                 logger.info('Usuario no encontrado')
                 return done(null, false);
@@ -136,12 +138,11 @@ usuarios.post('/registro', upload.single('foto'), async (req, res)=>{
         if(req.file){
             pathFile = `/fotos/${req.file.originalname}`
         }
-        console.log(path.join(process.cwd() + `/fotos/${req.file.originalname}`))
+        //console.log(path.join(process.cwd() + `/fotos/${req.file.originalname}`))
 
         if (usuario) {
             res.redirect('/api/u/registroerror')
         } else {
-            console.log(req.file)
             await usuariosMonDB.save({
                 email: req.body.email,
                 nombre: req.body.nombreUsuario,

@@ -4,3 +4,11 @@
 [2022-05-15T03:29:20.835] [ERROR] default - Error: Missing credentials for "PLAIN" - Hubo un error en el envío del e-mail de registro
 [2022-05-15T04:22:56.029] [ERROR] default - TypeError: Cannot read property '0' of null - Hubo un error
 [2022-05-15T04:26:41.615] [ERROR] default - ReferenceError: __dirname is not defined - Hubo un error en ruta /registro metodo POST implementada
+[2022-05-15T04:57:56.697] [ERROR] default - TypeError: Cannot read property 'originalname' of undefined - Hubo un error en ruta /registro metodo POST implementada
+[2022-05-15T05:08:09.854] [ERROR] default - TypeError: Cannot read property '0' of null - Hubo un error
+[2022-05-15T05:08:37.450] [ERROR] default - TypeError: Cannot read property '0' of null - Hubo un error
+[2022-05-15T05:09:22.480] [ERROR] default - TypeError: Cannot read property '0' of null - Hubo un error
+[2022-05-15T05:09:47.851] [ERROR] default - TypeError: Cannot read property '0' of null - Hubo un error
+[2022-05-15T05:09:51.027] [ERROR] default - TypeError: Cannot read property '0' of null - Hubo un error
+[2022-05-15T05:55:42.706] [ERROR] default - TypeError: Cannot read property '0' of null - Hubo un error en ruta /6280bb8b254c1d6248226d24/pedir metodo GET implementada
+[2022-05-15T06:03:46.630] [ERROR] default - TypeError: Cannot read property '0' of null - Hubo un error en ruta /6280bb8b254c1d6248226d24/pedir metodo GET implementada

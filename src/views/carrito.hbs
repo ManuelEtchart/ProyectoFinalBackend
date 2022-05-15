@@ -18,7 +18,8 @@
                 <td>${{this.precio}}</td>
             </tr>
         {{/each}}
-    </table>        
+    </table>
+    <button class="boton"><a href=/api/carrito/{{carritos.[0]._id}}/pedir >PEDIR</a></button>        
 </div>
 {{#if productos.msg}}
         <p class="aviso">No hay productos</p>

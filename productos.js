@@ -35,7 +35,7 @@ productos.use(passport.session())
 
 const administrador = true;
 
-productos.get('/form',isAuth, async (req,res)=>{
+productos.get('/form', async (req,res)=>{
     logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
     res.render('productosForm', {mensajes: await mensajesMonDB.getAll()});
 });
@@ -44,7 +44,6 @@ productos.get('/:id?', async (req,res) => {
     logger.info(`ruta ${req.url} metodo ${req.method} implementada`)
     try {
         if (req.params.id === undefined) {
-            console.log(emailUser)
             res.render('inicio', {productos: await productoMonDB.getAll(), mensajes: await mensajesMonDB.getAll(), datosUsuario: await usuariosMonDB.getByEmail(emailUser)})
         }else{
             res.render('producto',{producto: await productoMonDB.getById(req.params.id), mensajes: await mensajesMonDB.getAll()})

@@ -4,16 +4,14 @@ import os from 'os';
 import cluster from 'cluster';
 import log4js from 'log4js';
 import hbs from 'express-handlebars';
-//import session from 'express-session';
-//import cookieParser from 'cookie-parser';
 import productos from './productos.js';
 import carrito from './carrito.js';
 import mensajes from './mensajes.js';
 import usuarios from './usuarios.js';
+import dotenv from 'dotenv';
+const dotenvConfig = dotenv.config()
 
 const app = express();
-
-
 
 log4js.configure({
     appenders:{
@@ -37,7 +35,7 @@ log4js.configure({
 export const logger = log4js.getLogger('custom');
 export const loggerError = log4js.getLogger();
 
-const MODO_CLUSTER = process.env.MODO || false
+const MODO_CLUSTER = process.env.MODO === 'cluster';
 
 if(MODO_CLUSTER && cluster.isMaster) {
     const numCPUs = os.cpus().length
